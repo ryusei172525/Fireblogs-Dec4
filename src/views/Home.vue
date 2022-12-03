@@ -34,7 +34,7 @@ export default {
     return {
       // オブジェクトでtemplateに渡してあげる
       welcomeScreen: {
-        title: "Welcome!",
+        title: "Welcome!ようこそ！",
         blogPost:
           "Weekly blog articles with all things programming including HTML, CSS, JavaScript and more. Register today to never miss a post!",
         welcomeScreen: true,
