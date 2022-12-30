@@ -56,6 +56,15 @@ export default {
     instagram,
     linkedin,
   },
+  computed: {
+    // user情報がある場合に、Login/Registerを非表示、右上にアイコンボックスを表示する。そのための関数
+    user() {
+      return this.$store.state.user;
+    },
+    admin() {
+      return this.$store.state.profileAdmin;
+    },
+  },
 };
 </script>
 

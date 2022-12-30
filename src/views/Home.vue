@@ -1,16 +1,16 @@
 <template>
   <div class="home">
-    <BlogPost :post="welcomeScreen" />
+    <BlogPost v-if="!user" :post="welcomeScreen" />
     <BlogPost
       :post="post"
-      v-for="(post, index) in sampleBlogPost"
+      v-for="(post, index) in blogPostsFeed"
       :key="index"
     />
     <div class="blog-card-wrap">
       <div class="container">
         <h3>View More Recent Blogs</h3>
         <div class="blog-cards">
-          <BlogCard :post="post" v-for="(post, index) in sampleBlogCards" :key="index" />
+          <BlogCard :post="post" v-for="(post, index) in blogPostsCards" :key="index" />
         </div>
       </div>
     </div>
@@ -40,24 +40,18 @@ export default {
         welcomeScreen: true,
         photo: "coding",
       },
-      sampleBlogPost: [
-        {
-          title: "Hi",
-          blogHTML: "AAA",
-          blogCoverPhoto: "beautiful-stories"
-        },
-        {
-          title: "Hi2",
-          blogHTML: "BBB",
-          blogCoverPhoto: "designed-for-everyone"
-        },
-      ],
     };
   },
   computed: {
     // 13行目でsampleBlogCardsを発動しているのでその値を返してやる必要がある。その値はdata()からでなくこの場合storeを使って持ってくることにする
-    sampleBlogCards() {
-      return this.$store.state.sampleBlogCards
+    blogPostsFeed() {
+      return this.$store.getters.blogPostsFeed;
+    },
+    blogPostsCards() {
+      return this.$store.getters.blogPostsCards;
+    },
+    user() {
+      return this.$store.state.user;
     }
   }
 };

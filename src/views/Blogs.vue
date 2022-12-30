@@ -6,7 +6,8 @@
         <!-- v-modelはcomputedの中のedsitPostを発動することで、storeの中のedtiPostを参照している -->
         <input type="checkbox" v-model="editPost" />
       </div>
-      <BlogCard :post="post" v-for="(post, index) in sampleBlogCards" :key="index" />
+      <!-- 親コンポーネントでは以下のように書く。:post←postというものを子コンポーネントのpropで記述している -->
+      <BlogCard :post="post" v-for="(post, index) in blogPosts" :key="index" />
     </div>
   </div>
 </template>
@@ -17,8 +18,8 @@ export default {
   name: "blogs",
   components: { BlogCard },
   computed: {
-    sampleBlogCards() {
-      return this.$store.state.sampleBlogCards
+    blogPosts() {
+      return this.$store.state.blogPosts;
     },
     editPost: {
       get() {
