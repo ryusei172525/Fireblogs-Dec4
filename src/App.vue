@@ -1,6 +1,7 @@
 <template>
   <div class="app-wrapper">
-    <div class="app">
+    <!-- ロードできてから表示 -->
+    <div class="app" v-if="this.$store.state.postLoaded">
       <Navigation v-if="!navigation" />
       <router-view />
       <Footer v-if="!navigation" />
@@ -21,22 +22,26 @@ export default {
       navigation: null,
     };
   },
+  // ライフサイクルの話参照
   created() {
     firebase.auth().onAuthStateChanged((user) => {
       this.$store.commit("updateUser", user);
       if (user) {
         // 更新があるなら現在の情報を手に入れる
         this.$store.dispatch("getCurrentUser", user);
+        console.log(this.$store.state.profileEmail);
       }
     });
     // ここでcheckRouteを初期化してあげてはじめてmethodsで使える
     this.checkRoute();
+    this.$store.dispatch("getPost");
   },
   mounted() {},
   methods: {
     // ナビゲーションバーをページに置くかどうか指定する
     checkRoute() {
       if (
+        // rotueは現在のページの情報を取得している
         this.$route.name === "Login" ||
         this.$route.name === "Register" ||
         this.$route.name === "ForgotPassword"
@@ -47,6 +52,7 @@ export default {
       this.navigation = false;
     },
   },
+  // watch：何か変化があった時に予め登録しておいた処理を自動的に実行してくれる仕組み
   watch: {
     $route() {
       this.checkRoute();

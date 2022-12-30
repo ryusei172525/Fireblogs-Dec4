@@ -10,7 +10,7 @@ Vue.use(Vue2Editor);
 
 Vue.config.productionTip = false;
 
-// main.jsが一番初めに読み込まれる部分なのでここにログインしているorしていないを書く
+// main.jsが一番初めに読み込まれる部分なのでここにユーザがログインしているorしていないを書く
 // ユーザ情報の取得に1秒以下ほどかかるので
 let app;
 firebase.auth().onAuthStateChanged(()=>{
